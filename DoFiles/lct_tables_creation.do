@@ -783,7 +783,7 @@ keep vars-p_val_mo_dif_fa;
 keep if coef_anytransfer!="";
 
 *edit vars-p_val_mo_dif_fa  if _n<100;
-*outsheet vars-p_val_mo_dif_fa using Tables_paper\cct_table5_1.out  if _n<100 ,replace;	
+*outsheet vars-p_val_mo_dif_fa using Tables_paper/cct_table5_1.out  if _n<100 ,replace;	
 tempfile tp_tab5_a;
 save `tp_tab5_a';
 
@@ -802,7 +802,7 @@ local i -1;
 foreach var of global table5_2_var {;
 local i=`i'+2;
 
-use "Output\workingtable3", clear;
+use "Output/workingtable3", clear;
 gen cond_pere=anycond*pere;
 gen cond_mere=anycond*mere;
 
@@ -953,7 +953,7 @@ keep vars-p_val_mo_dif_fa;
 keep if coef_anytransfer!="";
 save `tp_table5_3';
 *edit vars-p_val_mo_dif_fa  if _n<100;
-*outsheet vars-p_val_mo_dif_fa using Tables_paper\cct_table5_attendance.out  if _n<100 ,replace;
+*outsheet vars-p_val_mo_dif_fa using Tables_paper/cct_table5_attendance.out  if _n<100 ,replace;
 
 
 ******;
@@ -968,7 +968,7 @@ append using `tp_table5_3';
 append using `tp_completed_g5';
 
 *edit vars-p_val_mo_dif_fa  if _n<100;
-outsheet vars-p_val_mo_dif_fa using "Tables_paper\cct_table5.out"  if _n<100 ,replace;	
+outsheet vars-p_val_mo_dif_fa using "Tables_paper/cct_table5.out"  if _n<100 ,replace;	
 
 
 
@@ -1372,7 +1372,7 @@ dropout_since2008_grade_14_c dropout_since2008_grade_14_sat
 dropout08_enroll10_boys dropout08_enroll10_girls
 dropout08_enroll10_sch_sec dropout08_enroll10_sat ;
 
-u "Output\workingtable6",clear;
+u "Output/workingtable6",clear;
 
 gen vars="";
 gen mean_control="";
@@ -1442,7 +1442,7 @@ save `tp_tab8_1';
 ************************************;
 ** SAME control as for table 5_3;
 #delimit;
-use "Output\workingtable5", clear;
+use "Output/workingtable5", clear;
 
 gen cond_pere=anycond*pere;
 gen uncond_mere=uncond*mere;
@@ -1525,7 +1525,7 @@ save `tp_tab8_2';
 *************************************;
 ** SAME controls as for table 6;
 #delimit;
-u "Output\workingtable8",clear;
+u "Output/workingtable8",clear;
 
 
 ***;
@@ -1632,7 +1632,7 @@ outsheet vars-p_val_mo_dif_fa using "Tables_paper\cct_table8.out"  if _n<100 ,re
 ******************************************;
 ******************************************;
 #delimit;
-u "Output\workingtable_returns",clear;
+u "Output/workingtable_returns",clear;
 
 
 #delimit;
@@ -1721,7 +1721,7 @@ outsheet vars-N using "Tables_paper\cct_table9.out"  if _n<400 ,replace	;
 
 #delimit;
 set more off;
-u "Output\workingtable6",clear;
+u "Output/workingtable6",clear;
 
 local i -2;
 gen mean_var=.;
@@ -1807,7 +1807,7 @@ qui graph save "Tables_paper\graph_1",replace;
 #delimit;
 set more off;
 
-u "Output\workingtableA2",clear;
+u "Output/workingtableA2",clear;
 
 
 gen cond_pere=anycond*pere;
@@ -1890,7 +1890,7 @@ save `tp_tabA1_1';
 ** SAME control as for table 5_2;
  
 #delimit;
-use "Output\workingtable3", clear;
+use "Output/workingtable3", clear;
 gen cond_pere=anycond*pere;
 gen cond_mere=anycond*mere;
 
@@ -1981,7 +1981,7 @@ outsheet vars-p_val_mo_dif_fa using "Tables_paper\cct_tableA1.out"  if _n<100 ,r
 * Attrition;
 **************************************;
 #delimit;
-u "Output\workingtable_hh_baseline",clear;
+u "Output/workingtable_hh_baseline",clear;
 
 
 *replace attrition_baseline=. if  tot_never_sur_etab==0;
@@ -2103,7 +2103,7 @@ outsheet vars-p_val_mo_dif_fa using "Tables_paper\cct_tableA2.out"  if _n<100 ,r
 * Part 1: Checking randomization and attrition for ASER TEST;
 **************************************;
 #delimit;
-u "Output\workingtable_hh_baseline",clear;
+u "Output/workingtable_hh_baseline",clear;
 
 replace attrition_aser=. if attrition_aser_no_test==1;
 
@@ -2187,7 +2187,7 @@ save `tp_tableA3_1';
 *******************;
 ** A3 PART2: balance check of kids surveyed;
 
-u "Output\workingtable_aser",clear;
+u "Output/workingtable_aser",clear;
 drop if attrited==1;
 
 
@@ -2276,7 +2276,7 @@ outsheet vars-p_val_mo_dif_fa using "Tables_paper\cct_tableA3.out"  if _n<100 ,r
 ******************************************;
 ******************************************;
 #delimit;
-u "Output\workingtable6",clear;
+u "Output/workingtable6",clear;
 
 gen bs_age_spouse_sqr=bs_age_spouse*bs_age_spouse;
 gen bs_age_head_sqr=bs_age_head*bs_age_head;
@@ -2325,7 +2325,7 @@ using "Tables_paper\cct_tableA4.out", nonote se symbol(***,**,*) replace
 ***********************************;
 *************************************;
 
-u "Output\workingtable_child_work",clear;
+u "Output/workingtable_child_work",clear;
 
 global tableA5_var " worked_last_30_days average_hrs_worked_by_day 
 worked_self_hh average_hrs_worked_by_day_self worked_outside_hh 
@@ -2382,7 +2382,7 @@ sum  worked_outside_hh [iw=weight_hh] if enroll_attend_May2010==0 & a13>10 ;
 
 ** share 6-11 never enrolled at baseline;
 #delimit;
-u "Output\workingtable6",clear;
+u "Output/workingtable6",clear;
 
 sum bs_neverinschool [iw=weight_hh] if bs_age>5 & bs_age<12;
 sum bs_neverinschool if bs_age>5 & bs_age<12;
@@ -2404,7 +2404,7 @@ global table5_1_var dropout_since2008_grade_1234
 
 forvalues j=0/1 {;
 	#delimit;
-u "Output\workingtable6",clear;
+u "Output/workingtable6",clear;
 
 gen an_distance_school=d30 if d30>=0;
 replace an_distance_school=d19 if d19>=0 & an_distance_school==.;
@@ -2518,7 +2518,7 @@ global table5_1_var enroll_attend_May2010
 	dropout_since2008_grade_1234
 	dropout08_enroll10 neverenrolled; 
 
-u "Output\workingtable6",clear;
+u "Output/workingtable6",clear;
 
 gen vars="";
 gen mean_control="";
@@ -2596,7 +2596,7 @@ outsheet vars-p_val_mo_dif_fa using "Tables_paper\cct_table5_no_weights.out"  if
 
 
 #delimit;
-u "Output\workingtable8",clear;
+u "Output/workingtable8",clear;
 
 
 ***;
@@ -2674,7 +2674,7 @@ outsheet vars-N using "Tables_paper\cct_table6_no_weights.out"  if _n<100 ,repla
 ******************************************;
 ******************************************;
 #delimit;
-u "Output\workingtable_returns",clear;
+u "Output/workingtable_returns",clear;
 
 
 #delimit;
@@ -2768,7 +2768,7 @@ global table5_1_var enroll_attend_May2010
 
 foreach var in $table5_1_var {;
 
-u "Output\workingtable6",clear;
+u "Output/workingtable6",clear;
 ** treatment var;
 gen graph_treat=0 if control==1;
 replace graph_treat=1 if anycond==0 & pere==1;
@@ -2860,7 +2860,7 @@ local i -1;
 foreach var of global table5_2_var {;
 local i=`i'+2;
 
-use "Output\workingtable3", clear;
+use "Output/workingtable3", clear;
 gen cond_pere=anycond*pere;
 gen cond_mere=anycond*mere;
 
@@ -2920,7 +2920,7 @@ graph save "Tables_paper\graph_`var'",replace;
 
 
 #delimit;
-use "Output\workingtable5", clear;
+use "Output/workingtable5", clear;
 
 gen cond_pere=anycond*pere;
 gen uncond_mere=uncond*mere;

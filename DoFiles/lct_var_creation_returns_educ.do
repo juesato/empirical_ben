@@ -59,7 +59,7 @@ drop _merge;
 
 
 **************************************************;
-save "output/workingtable_educ_return",replace;
+save "Output/workingtable_educ_return",replace;
 **************************************************;
 
 	
