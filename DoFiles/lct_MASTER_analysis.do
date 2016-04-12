@@ -26,12 +26,12 @@ set maxvar 20000;
 1- You need a Master folder with the following sub-folders;
   -"Input": where all the databases are;
   -"Output": an empty folder where all the temporary databases will be created;
-  -"Table_paper": where all the tables will be created;
+  -"Tables_paper": where all the tables will be created;
 2- Specify bellow the path to these Master folder.
 
 3- Run this dofile;
 
-4-In the "Table_paper" folder, update the master Excel file
+4-In the "Tables_paper" folder, update the master Excel file
 	with all the tables with the created tables (.out format).  
 */;
 
