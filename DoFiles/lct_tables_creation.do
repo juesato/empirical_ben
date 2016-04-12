@@ -1046,7 +1046,7 @@ for any anytransfer :
 
 
 *edit vars-N if _n<100;
-outsheet vars-N using "Tables_paper\cct_table6.out"  if _n<100 ,replace;	
+outsheet vars-N using "Tables_paper/cct_table6.out"  if _n<100 ,replace;	
 
 
 
@@ -1343,7 +1343,7 @@ u `tp_aser1',clear;
 append using `tp_aser2';
 *edit vars-p_val_mo_dif_fa  if _n<100;
 
-outsheet vars-p_val_mo_dif_fa using "Tables_paper\cct_table7.out"  if _n<100 ,replace;	
+outsheet vars-p_val_mo_dif_fa using "Tables_paper/cct_table7.out"  if _n<100 ,replace;	
 
 
 
@@ -1621,7 +1621,7 @@ u `tp_tab8_1',clear;
 append using `tp_tab8_2';
 append using `tp_tab8_3';
 *edit vars-p_val_mo_dif_fa if _n<100;
-outsheet vars-p_val_mo_dif_fa using "Tables_paper\cct_table8.out"  if _n<100 ,replace;	
+outsheet vars-p_val_mo_dif_fa using "Tables_paper/cct_table8.out"  if _n<100 ,replace;	
 
 
 
@@ -1696,7 +1696,7 @@ for any anytransfer:
 
 *edit vars-N  if _n<400;
 
-outsheet vars-N using "Tables_paper\cct_table9.out"  if _n<400 ,replace	;
+outsheet vars-N using "Tables_paper/cct_table9.out"  if _n<400 ,replace	;
 
 
 
@@ -1787,7 +1787,7 @@ ylabel(22.8 "School too far "
  1.5 "Child was too old `pv_do_old_since2008' " , nogrid angle(0) noticks labsize(small)) ytitle("")
 title("")
 graphregion(color(white) fcolor(white))  ;
-qui graph save "Tables_paper\graph_1",replace;
+qui graph save "Tables_paper/graph_1",replace;
 
 
 
@@ -1964,7 +1964,7 @@ save `tp_tabA1_2';
 u `tp_tabA1_1',clear;
 append using `tp_tabA1_2';
 *edit vars-p_val_mo_dif_fa if _n<100;
-outsheet vars-p_val_mo_dif_fa using "Tables_paper\cct_tableA1.out"  if _n<100 ,replace;
+outsheet vars-p_val_mo_dif_fa using "Tables_paper/cct_tableA1.out"  if _n<100 ,replace;
 
 
 
@@ -2087,7 +2087,7 @@ replace coef_cond_mere=string(r(N)) if _n==`i'+2;
 replace N=r(N) if _n==`i'+2;
 *edit vars-p_val_mo_dif_fa  if _n<100;
 
-outsheet vars-p_val_mo_dif_fa using "Tables_paper\cct_tableA2.out"  if _n<100 ,replace;	
+outsheet vars-p_val_mo_dif_fa using "Tables_paper/cct_tableA2.out"  if _n<100 ,replace;	
 
 
 
@@ -2262,7 +2262,7 @@ u `tp_tableA3_1';
 append using `tp_tableA3_2';
 *edit vars-p_val_mo_dif_fa  if _n<100;
 
-outsheet vars-p_val_mo_dif_fa using "Tables_paper\cct_tableA3.out"  if _n<100 ,replace;	
+outsheet vars-p_val_mo_dif_fa using "Tables_paper/cct_tableA3.out"  if _n<100 ,replace;	
 
 
 
@@ -2311,7 +2311,7 @@ local mean=r(mean);
  if control==1;
 
 outreg2 `reg_list_out'
-using "Tables_paper\cct_tableA4.out", nonote se symbol(***,**,*) replace
+using "Tables_paper/cct_tableA4.out", nonote se symbol(***,**,*) replace
 	nolabel addstat("Mean dependent variable", `mean')
 	 adec(3) bdec(3);
 
@@ -2370,7 +2370,7 @@ replace N_`j'=r(N) if _n==`i';
 };
 
 *edit vars-N_3 if _n<100;
-outsheet vars-N_3 using "Tables_paper\cct_tableA5.out"  if _n<100 ,replace;
+outsheet vars-N_3 using "Tables_paper/cct_tableA5.out"  if _n<100 ,replace;
 
 ** OTHER STATS;
 ** earnings of kids who work ouside HH;
@@ -2489,9 +2489,9 @@ save `tp_tab5_`j'';
 u `tp_tab5_0',clear;
 append using `tp_tab5_1';
 
-edit vars-p_val_mo_dif_fa  if _n<100;
+*edit vars-p_val_mo_dif_fa  if _n<100;
 
-outsheet vars-p_val_mo_dif_fa using "Tables_paper\cct_table5_time_school.out"  if _n<100 ,replace;	
+outsheet vars-p_val_mo_dif_fa using "Tables_paper/cct_table5_time_school.out"  if _n<100 ,replace;	
 
 
 
@@ -2581,7 +2581,7 @@ keep if coef_anytransfer!="";
 
 
 *edit vars-p_val_mo_dif_fa  if _n<100;
-outsheet vars-p_val_mo_dif_fa using "Tables_paper\cct_table5_no_weights.out"  if _n<100 ,replace;	
+outsheet vars-p_val_mo_dif_fa using "Tables_paper/cct_table5_no_weights.out"  if _n<100 ,replace;	
 
 
 
@@ -2661,7 +2661,7 @@ for any anytransfer :
 
 
 *edit vars-N if _n<100;
-outsheet vars-N using "Tables_paper\cct_table6_no_weights.out"  if _n<100 ,replace;	
+outsheet vars-N using "Tables_paper/cct_table6_no_weights.out"  if _n<100 ,replace;	
 
 
 
@@ -2738,7 +2738,7 @@ for any anytransfer:
 
 *edit vars-N  if _n<400;
 
-outsheet vars-N using "Tables_paper\cct_table9_no_weights.out"  if _n<400 ,replace	;
+outsheet vars-N using "Tables_paper/cct_table9_no_weights.out"  if _n<400 ,replace	;
 
 
 
@@ -2828,22 +2828,22 @@ xlabel(0 "Control" 1 "LCT fathers" 2 "LCT mothers" 3 "CCT fathers" 4 "CCT mother
 xtitle("") title("`title1'") subtitle("`title2'")
 note(N=`n_size');
 
-graph save "Tables_paper\graph_`var'",replace;
+graph save "Tables_paper/graph_`var'",replace;
 };
 
 
 #delimit;
- qui graph combine "Tables_paper\graph_enroll_attend_May2010.gph" 
- "Tables_paper\graph_dropout_since2008_grade_1234.gph"
- "Tables_paper\graph_dropout08_enroll10.gph"
- "Tables_paper\graph_neverenrolled.gph"
+ qui graph combine "Tables_paper/graph_enroll_attend_May2010.gph" 
+ "Tables_paper/graph_dropout_since2008_grade_1234.gph"
+ "Tables_paper/graph_dropout08_enroll10.gph"
+ "Tables_paper/graph_neverenrolled.gph"
  ,xcommon rows(2) cols(2) graphregion(color(white) 
- fcolor(white))  saving( "Tables_paper\Schooling_households",replace); 
+ fcolor(white))  saving( "Tables_paper/Schooling_households",replace); 
 
-erase "Tables_paper\graph_enroll_attend_May2010.gph"; 
-erase "Tables_paper\graph_dropout_since2008_grade_1234.gph";
-erase "Tables_paper\graph_dropout08_enroll10.gph";
-erase "Tables_paper\graph_neverenrolled.gph";
+erase "Tables_paper/graph_enroll_attend_May2010.gph"; 
+erase "Tables_paper/graph_dropout_since2008_grade_1234.gph";
+erase "Tables_paper/graph_dropout08_enroll10.gph";
+erase "Tables_paper/graph_neverenrolled.gph";
 
 
 
@@ -2913,7 +2913,7 @@ xlabel(0 "Control" 1 "LCT Fathers" 2 "LCT Mothers" 3 "CCT Fathers" 4 "CCT Mother
 xtitle("") title("`title1'") subtitle("`title2'")
 note(N=`n_size');
 
-graph save "Tables_paper\graph_`var'",replace;
+graph save "Tables_paper/graph_`var'",replace;
 };
 
 
@@ -2977,19 +2977,19 @@ twoway (bar m_`var'_ graph_treat , barwidth(0.5) color(navy) , if graph_treat==0
 xlabel(0 "Control" 1 "LCT fathers" 2 "LCT mothers" 3 "CCT fathers" 4 "CCT mothers" ,alternate)
 xtitle("") title("`title1'") subtitle("`title2'")
 note(N=`n_size');
-graph save "Tables_paper\graph_`var'",replace;
+graph save "Tables_paper/graph_`var'",replace;
 
 
 #delimit;
- qui graph combine "Tables_paper\graph_dropout_g14.gph"
- "Tables_paper\graph_attenance_all.gph"
- "Tables_paper\graph_completed_g5.gph" 
+ qui graph combine "Tables_paper/graph_dropout_g14.gph"
+ "Tables_paper/graph_attenance_all.gph"
+ "Tables_paper/graph_completed_g5.gph" 
  ,xcommon rows(2) cols(2) graphregion(color(white) 
- fcolor(white))  saving( "Tables_paper\Schooling_school",replace); 
+ fcolor(white))  saving( "Tables_paper/Schooling_school",replace); 
 
-erase "Tables_paper\graph_dropout_g14.gph";
-erase "Tables_paper\graph_attenance_all.gph";
-erase "Tables_paper\graph_completed_g5.gph";
+erase "Tables_paper/graph_dropout_g14.gph";
+erase "Tables_paper/graph_attenance_all.gph";
+erase "Tables_paper/graph_completed_g5.gph";
 
 
 

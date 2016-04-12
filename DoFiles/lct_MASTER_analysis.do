@@ -6,7 +6,8 @@ set more off;
 clear mata;
 set maxvar 20000;
 
-
+capture log close;
+log using session.log, text replace;
 *********************************************************************;
 ***** TURNING A SHOVE INTO A NUDGE: A LABELED CASH TRANSFER FOR EDUCATION;
 ***** MASTER DOFILE;
@@ -43,7 +44,10 @@ set maxvar 20000;
 	*update this with your own path;
 *	cd "C:/Users/pdupas/Documents/Pascaline's Work/Research projects/MAROC CCT/data/Final anonymous data/";
 *  cd ".."
-cd "/bbkinghome/juesato/benhassine_et_al/data_online/"
+cd "/bbkinghome/juesato/benhassine_et_al/data_online/";
+
+dir;
+pwd;
 
 ***********************************;
 * We get databases ready for analysis;
