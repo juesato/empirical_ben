@@ -5,14 +5,14 @@ set more off;
 
 
 *************************************;
-use "Output\indiv_sectionA.dta", clear; 
+use "Output/indiv_sectionA.dta", clear; 
 	sort hhmid;
 
 
 ***********************************;
 * we first merge with Section A and keep HH members 16 years old and more;
 
-	merge hhmid using "Output\indiv_sectionG.dta";
+	merge hhmid using "Output/indiv_sectionG.dta";
 		assert _merge==3;
 		drop _merge;
 		drop if hhmember==0;
@@ -56,7 +56,7 @@ replace earnings_outside_hh=. if earnings_outside_hh==0 & (g7_2_act`i'==1 | g7_3
 ******;
 ** we add weight;
 sort hhid_endline;
-merge hhid_endline using "Input\cct_hh_weights_an";
+merge hhid_endline using "Input/cct_hh_weights_an";
 ta _merge;
 drop if _merge==2;
 assert _merge==3;
@@ -67,7 +67,7 @@ drop _merge;
 ******;
 ** mergeing with schooling status;
 preserve;
-u "Output\workingtable6",clear;
+u "Output/workingtable6",clear;
 sort  hhmid;
 duplicates drop hhmid,force;
 save tp1,replace;
@@ -83,7 +83,7 @@ drop _merge;
 
 ** SAVING;
 *********************************;
-save "Output\workingtable_child_work",replace;
+save "Output/workingtable_child_work",replace;
 *********************************;
 
 				

@@ -13,7 +13,7 @@ set more off;
 ************************************************;
 
 ***************************************;
-use "Output\indiv_sectionC.dta", clear;
+use "Output/indiv_sectionC.dta", clear;
 
 
 **************************************;
@@ -181,7 +181,7 @@ gen `var'_schoolperiod=`var' if  schoolperiod==1;
 cap drop _merge;
 sort schoolunitid;
 preserve;
-u "Output\school_level_data",clear;
+u "Output/school_level_data",clear;
 
 global school_var "multiniveau num_sections v0_age v0_female 
  teacher_presence v0_presence prel_elec 
@@ -212,7 +212,7 @@ replace dow_survey=0 if survey_date_miss==1;
 ** We need grades of the kid at baseline;
 ** so we merge with section D;
 preserve;
-u "Output\indiv_sectionD",clear;
+u "Output/indiv_sectionD",clear;
 
 drop if hhmid=="";
 duplicates drop hhmid,force;
@@ -254,7 +254,7 @@ replace teach_strike=r(mean) if teach_strike==.;
 ******;
 ** we add weight;
 sort hhid_endline;
-merge hhid_endline using "Input\cct_hh_weights_an";
+merge hhid_endline using "Input/cct_hh_weights_an";
 ta _merge;
 drop if _merge==2;
 assert _merge==3;
@@ -275,7 +275,7 @@ gen cond_mere=anycond*mere;
 
 ** SAVING;
 *********************************;
-save "Output\workingtable8",replace;
+save "Output/workingtable8",replace;
 *********************************;
 
 

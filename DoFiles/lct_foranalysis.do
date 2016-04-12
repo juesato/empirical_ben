@@ -11,7 +11,7 @@ set more off;
 **********************;
  * HH ENDLINE database;
 
-use "Input\cct_endline_an.dta", clear;
+use "Input/cct_endline_an.dta", clear;
 
 	gen surveyed_august=0;
 		replace surveyed_august=1 if id12_2==8;
@@ -23,7 +23,7 @@ use "Input\cct_endline_an.dta", clear;
 	keep hhid surveyed_august surveyed_august_miss;
 	duplicates drop hhid, force;
 	sort hhid;
-	save "Output\end_temp.dta", replace; 
+	save "Output/end_temp.dta", replace; 
 
 
 
@@ -31,7 +31,7 @@ use "Input\cct_endline_an.dta", clear;
 ** BASELINE SECTION D at the child level;
 ****************************************;
 #delimit;
-use "Input\cct_baseline_an.dta", clear; 
+use "Input/cct_baseline_an.dta", clear; 
 
 	* we define variables of interest;
 	qui foreach j of numlist 1(1)6 {;
@@ -104,7 +104,7 @@ destring d9_5,replace;
 
 * we identify HH surveyed at endline;
 		sort hhid;
-		merge hhid using "Output\end_temp.dta";
+		merge hhid using "Output/end_temp.dta";
 			tab _merge;
 			drop if _merge==2;
 			rename _merge attrition;
@@ -123,7 +123,7 @@ destring d9_5,replace;
 
 	rename d2 bs_d2;
 	sort bs_idmember;
- 	save "Output\bs_indiv_sectionD.dta", replace; 
+ 	save "Output/bs_indiv_sectionD.dta", replace; 
 
 
 *******************;
@@ -131,7 +131,7 @@ destring d9_5,replace;
 
 #delimit;
 set more off;
-	use "Input\cct_baseline_an.dta", clear; 
+	use "Input/cct_baseline_an.dta", clear; 
 
 	
 	
@@ -532,12 +532,12 @@ gen unuseful_educ=f7==3 | f7==4 if f7>0 & f7<5;
 
 * we identify HH surveyed at endline;
 	sort hhid;
-	merge hhid using "Output\end_temp.dta";
+	merge hhid using "Output/end_temp.dta";
 		tab _merge;
 		drop if _merge==2;
 		rename _merge attrition;
 		recode attrition (3=0);
-		erase "Output\end_temp.dta";
+		erase "Output/end_temp.dta";
 
 	gen control=(group==0);
 	gen anytransfer=(inrange(group,1,4));
@@ -551,28 +551,28 @@ gen unuseful_educ=f7==3 | f7==4 if f7>0 & f7<5;
 	sort hhid;
 	keep hhid-benef  bs_male_head-bs_cons4 bs_monthly_consump* bs_cons* bs_* 
 	attrition control-satellite  surveyed_august surveyed_august_miss;
-	save "Output\temp_baseline_forothers.dta", replace;
+	save "Output/temp_baseline_forothers.dta", replace;
 
 * Database to be merged with SectionD endline, individual data (we will use it to look for kids that do not merge between bs and end);
 	keep hhid bs_a2* bs_a3_* bs_a4_* bs_a5_* bs_a13_* bs_d1_*
 	bs_d2_* bs_d3_* bs_d4_* bs_d5_* bs_d6_* attrition;
 	sort hhid;
-	save "Output\temp_base_forsectionD.dta", replace;
+	save "Output/temp_base_forsectionD.dta", replace;
 
 * Database to check randomization;
-	use "Output\temp_baseline_forothers.dta", clear;
+	use "Output/temp_baseline_forothers.dta", clear;
 	drop bs_a2* bs_a3_* bs_a4_* bs_a5_* bs_a13_* bs_d1_* bs_d2_* bs_d3_*
 	bs_d4_* bs_d5_* bs_d6_*;
- 	save "Output\baseline_randomization.dta", replace;
+ 	save "Output/baseline_randomization.dta", replace;
 
 * Database of baseline covariates;
-	use "Output\temp_baseline_forothers.dta", clear;
+	use "Output/temp_baseline_forothers.dta", clear;
 	drop bs_a3_* bs_a4_* bs_a5_* bs_a13_* bs_d1_* bs_d2_*
 	bs_d3_* bs_d4_* bs_d5_* bs_d6_* attrition surveyed_august surveyed_august_miss;
 	sort hhid;
-	save "Output\baseline_cov.dta", replace;
+	save "Output/baseline_cov.dta", replace;
 
-	erase "Output\temp_baseline_forothers.dta";
+	erase "Output/temp_baseline_forothers.dta";
 	
 
 	
@@ -584,7 +584,7 @@ gen unuseful_educ=f7==3 | f7==4 if f7>0 & f7<5;
 *************************************;
 
 #delimit;
-use "Input\cct_tayssir_admin_data_an.dta", clear;
+use "Input/cct_tayssir_admin_data_an.dta", clear;
 
 foreach x in  11_2008 12_2008 1_2008 2_2008 3_2008 4_2008
  5_2008 6_2008 9_2009 10_2009 11_2009 12_2009 1_2009 
@@ -643,7 +643,7 @@ keep  hhid_endline-province amt_transfer_admin0809 paid_transfer_admin0809 ntran
 
 sort hhid_endline;
 
-save "Output\tayssir_admin_data_allpilot.dta", replace;		
+save "Output/tayssir_admin_data_allpilot.dta", replace;		
 
 	keep if hhid_endline!="";
 	isid hhid_endline;
@@ -651,14 +651,14 @@ save "Output\tayssir_admin_data_allpilot.dta", replace;
 			tot_trans_miss_HH mean_trans_miss_HH;
 	sort hhid_endline;
 
-save "Output\tayssir_admin_data.dta", replace;
+save "Output/tayssir_admin_data.dta", replace;
 
 
 **********************************************;
 ** ENDLINE Variables we will need all through;
 **********************************************;
 #delimit;
-use "Input\cct_endline_an.dta", clear;
+use "Input/cct_endline_an.dta", clear;
 
 
 ** HH size;
@@ -676,7 +676,7 @@ use "Input\cct_endline_an.dta", clear;
 ** We merge with baseline covariates database;
 	sort hhid;
 
-	merge hhid using "Output\baseline_cov.dta";
+	merge hhid using "Output/baseline_cov.dta";
 
 	foreach i of numlist 1/2 {;
 		count if a2_`i'==bs_a2_`i';
@@ -740,7 +740,7 @@ drop tot_child tot_schoolper;
 		
 ** We merge with stratification data;
 	sort schoolid;
-	merge schoolid using "Input\cct_stratum_an.dta";
+	merge schoolid using "Input/cct_stratum_an.dta";
 		tab _merge;
 		drop if _merge==2;
 		drop _merge;
@@ -748,7 +748,7 @@ drop tot_child tot_schoolper;
 ** We merge with Tayssir admin data;
 	sort hhid_endline;
 
-	merge hhid_endline using "Output\tayssir_admin_data.dta";
+	merge hhid_endline using "Output/tayssir_admin_data.dta";
 		tab _merge;
 		drop if _merge==2;
 		drop _merge;
@@ -759,7 +759,7 @@ drop tot_child tot_schoolper;
 
 
 ** HH endline-baseline database for analysis;
-save "Output\foranalysis.dta", replace; 
+save "Output/foranalysis.dta", replace; 
 
 
 
@@ -780,7 +780,7 @@ save "Output\foranalysis.dta", replace;
 #delimit;
 set more off;
 
-use "Output\foranalysis.dta", clear; 
+use "Output/foranalysis.dta", clear; 
 	keep hhid_endline-satellite a1_1-a20_32 stratum;
 
 	reshape long a1_ a2_ a2_2_ a3_ a4_ a5_ a6_ a7_ a8_ a9_ a10_ a11_ a12_ a13_ 
@@ -803,7 +803,7 @@ use "Output\foranalysis.dta", clear;
 
 	gen hhmember=0;
 		replace hhmember=1 if inrange(a5,1,3) | a5==9;
-	save "Output\indiv_sectionA.dta", replace;   
+	save "Output/indiv_sectionA.dta", replace;   
 
 
 	
@@ -815,7 +815,7 @@ use "Output\foranalysis.dta", clear;
 #delimit;
 set more off;
 
-use "Output\foranalysis.dta", clear; 
+use "Output/foranalysis.dta", clear; 
 
 
 ****************************************;
@@ -923,7 +923,7 @@ drop if c_enf==1 & c1==. & c2==. & c3_1_1==.;
    	gen hhmid2=hhid+idtemp; 
 	gen hhmid=hhid_endline+idtemp;
 		drop idtemp;
-	save "Output\indiv_sectionC.dta", replace;   
+	save "Output/indiv_sectionC.dta", replace;   
 
 
 ***********************;
@@ -932,7 +932,7 @@ drop if c_enf==1 & c1==. & c2==. & c3_1_1==.;
 #delimit;
 set more off;
 
-use "Output\foranalysis.dta", clear; 
+use "Output/foranalysis.dta", clear; 
 
 
 ****************************************;
@@ -1074,7 +1074,7 @@ d51_20 d51_21 d51_22 d51_23 d51_24 d51_25 d52_m d52_a d53
 
 * we merge with baseline Section D;
 	sort bs_idmember;
-	merge bs_idmember using "Output\bs_indiv_sectionD.dta";
+	merge bs_idmember using "Output/bs_indiv_sectionD.dta";
 		tab _merge;
 		tab _merge if bs_enrolled==1;
 
@@ -1086,18 +1086,18 @@ d51_20 d51_21 d51_22 d51_23 d51_24 d51_25 d52_m d52_a d53
 
 			rename _merge _merge_indivD;
 
-		save "Output\temp_indivD_main.dta", replace;   
+		save "Output/temp_indivD_main.dta", replace;   
 
 
 ** we identify status of not merged kids and we merge with ;
 ** Section D individual main database; 
 #delimit;
 set more off;
-	do "DoFiles\lct_sectionD_kidmerging";
+	do "DoFiles/lct_sectionD_kidmerging";
 
-	use "Output\temp_indivD_main.dta", clear;
+	use "Output/temp_indivD_main.dta", clear;
 		sort bs_idmember;
-		merge bs_idmember using "Output\kid_statusD.dta";	
+		merge bs_idmember using "Output/kid_statusD.dta";	
 			assert _merge==3;
 			drop _merge;	
 
@@ -1108,17 +1108,17 @@ set more off;
 
 	drop attrition child_column end_idmember bs_idmember bs_child_column bs_d2;
 
-save "Output\indiv_sectionD.dta", replace;
+save "Output/indiv_sectionD.dta", replace;
 
-erase "Output\temp_indivD_main.dta";
-erase "Output\temp_base_forsectionD.dta";
+erase "Output/temp_indivD_main.dta";
+erase "Output/temp_base_forsectionD.dta";
 
 
 
 **************************;
 ** SECTION G: ACTIVITIES;
 #delimit;
-use "Output\foranalysis.dta", clear; 
+use "Output/foranalysis.dta", clear; 
 
 
 ****************************************;
@@ -1194,4 +1194,4 @@ g16 g17 g18 g19 g20 g21 g21_cp g22 g23
    	gen hhmid=hhid_endline+member; 
 
 	sort hhmid;
-save "Output\indiv_sectionG.dta", replace;
+save "Output/indiv_sectionG.dta", replace;

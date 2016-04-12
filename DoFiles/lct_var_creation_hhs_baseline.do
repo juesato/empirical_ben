@@ -11,10 +11,10 @@ set more off;
 
 
 ** merging with monitoring data;
-u "Input\cct_monitoring_endline_an",clear;
+u "Input/cct_monitoring_endline_an",clear;
 sort hhid;
 save tp1,replace;
-use "Output\baseline_randomization.dta", clear; 
+use "Output/baseline_randomization.dta", clear; 
 sort hhid;
 merge hhid using tp1;
 erase tp1.dta;
@@ -50,7 +50,7 @@ drop tp1;
 ** we merge with the unit list;
 sort schoolunitid;
 save tp1,replace;
-u "Input\cct_monitoring_endline_an",clear;
+u "Input/cct_monitoring_endline_an",clear;
 keep schoolunitid-province;
 duplicates drop schoolunitid,force;
 sort schoolunitid;
@@ -63,7 +63,7 @@ drop _merge;
 ******;
 ** we merge with ASER data;
 sort hhid;
-merge hhid using "Input\cct_aser_an";
+merge hhid using "Input/cct_aser_an";
 drop if _merge==2;
 drop  _merge;
 
@@ -301,22 +301,22 @@ save "tp1",replace;
 *******************;
 ** List of SCHOOLS surveyed at endline HH survey;
 #delimit;
-u "Input\cct_endline_an",clear;
+u "Input/cct_endline_an",clear;
 keep hhid_endline-province;
 sort hhid;
-merge hhid using "Input\cct_baseline_an";
+merge hhid using "Input/cct_baseline_an";
 keep hhid_endline-province;
 duplicates drop schoolunitid,force;
 sort schoolunitid;
 
 ********************;
 ** SAVING;
-save "Output\list_unit_never_surveyed",replace;
+save "Output/list_unit_never_surveyed",replace;
 
 u "tp1",clear;
 erase tp1.dta;
 sort schoolunitid;
-merge schoolunitid using "Output\list_unit_never_surveyed";
+merge schoolunitid using "Output/list_unit_never_surveyed";
 *ta _merge;
 drop if _merge==1;
 drop _merge;
@@ -324,7 +324,7 @@ drop _merge;
 
 ** adding strata dummies;
 sort schoolid;
-merge schoolid using "Input\cct_stratum_an";
+merge schoolid using "Input/cct_stratum_an";
 drop if _merge==2;
 drop _merge;
 
@@ -333,7 +333,7 @@ drop _merge;
 
 preserve;
 ** addition weights;
-u "Input\cct_hh_weights_an",clear;
+u "Input/cct_hh_weights_an",clear;
 drop if hhid=="";
 duplicates drop hhid,force;
 sort hhid;
@@ -365,5 +365,5 @@ gen cond_mere=anycond*mere;
 ********************************;
 ** SAVING;
 sort hhid;
-save "Output\workingtable_hh_baseline",replace;
+save "Output/workingtable_hh_baseline",replace;
 

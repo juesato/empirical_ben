@@ -23,7 +23,7 @@ set more off;
 **********************************;
 **********************************;
 #delimit;
-use "Input\cct_baseline_an.dta", clear; 
+use "Input/cct_baseline_an.dta", clear; 
 
 keep hhid-id8 a1_1-a20_23;
 
@@ -81,7 +81,7 @@ a16_id a17_cycle_id a17_niveau_id a18_id a19_id a20_id {;
 *drop if a1_id==.;
 gen id_enf_test=member;
 sort hhid id_enf_test;
-save "Output\baselinedemo_tomerge", replace;
+save "Output/baselinedemo_tomerge", replace;
 
 
 **********************************;
@@ -89,7 +89,7 @@ save "Output\baselinedemo_tomerge", replace;
 ** 1.2. GET SCHOOLING INFO;
 **********************************;
 **********************************;
-use "Input\cct_baseline_an", clear; 
+use "Input/cct_baseline_an", clear; 
 
 ******************************************;
 * NEED TO RESHAPE DATA INTO LONG FORMAT;
@@ -239,7 +239,7 @@ id_enfant_id  e1_id e1_num_id e2_id e3_id e4_id e5_1_id e5_2_id e6_1_id e6_2_id 
 *drop if d1_id==2;
 gen id_enf_test=d2_id;
 sort hhid id_enf_test;
-save "Output\baselineschooling_tomerge", replace;
+save "Output/baselineschooling_tomerge", replace;
 
 
 ****************************************************;
@@ -248,16 +248,16 @@ save "Output\baselineschooling_tomerge", replace;
 ****************************************************;
 ****************************************************;
 #delimit;
-use "Input\cct_aser_an.dta", clear;
+use "Input/cct_aser_an.dta", clear;
 
 drop if prenom_enf_test=="pas d'enfant à tester";
 sort hhid id_enf_test;
-merge hhid id_enf_test using "Output\baselinedemo_tomerge", _merge(merge_basedemo);
+merge hhid id_enf_test using "Output/baselinedemo_tomerge", _merge(merge_basedemo);
 tab merge_basedemo;
 
 drop if merge_basedemo==2;
 sort hhid id_enf_test;
-merge hhid id_enf_test using "Output\baselineschooling_tomerge", _merge(merge_baseschooling);
+merge hhid id_enf_test using "Output/baselineschooling_tomerge", _merge(merge_baseschooling);
 tab merge_baseschooling;
 drop if merge_baseschooling==2;
 * TO DO: we still have 99 obs that do not merge;
@@ -266,15 +266,15 @@ drop if merge_baseschooling==2;
 #delimit;
 ** We merge with stratification data;
 	sort schoolid;
-	merge schoolid using "Input\cct_stratum_an.dta";
+	merge schoolid using "Input/cct_stratum_an.dta";
 		tab _merge;
 
 		drop if _merge==2;
 		drop _merge;
 
-save "Output\ASERdata", replace;
-erase "Output\baselinedemo_tomerge.dta";
-erase "Output\baselineschooling_tomerge.dta";
+save "Output/ASERdata", replace;
+erase "Output/baselinedemo_tomerge.dta";
+erase "Output/baselineschooling_tomerge.dta";
 
 
 
@@ -283,7 +283,7 @@ erase "Output\baselineschooling_tomerge.dta";
 *********************************************************;
 
 
-use "Output\ASERdata", clear;
+use "Output/ASERdata", clear;
 * create a satellite dummy;
  	gen satellite=0;
 		replace satellite=1 if type_unit=="Satellite";
@@ -383,7 +383,7 @@ save tp1,replace;
 
 **************************;
 ** ;
-use "Output\foranalysis.dta", clear;
+use "Output/foranalysis.dta", clear;
 
 gen cond_pere=anycond*pere;
 
@@ -461,7 +461,7 @@ drop _merge;
 **** we add school level data;
 sort schoolunitid;
 preserve;
-u "Output\school_level_data",clear;
+u "Output/school_level_data",clear;
 
 global school_var "multiniveau num_sections v0_age v0_female 
  teacher_presence v0_presence prel_elec 
@@ -500,7 +500,7 @@ gen school_period_miss=c0_1==. | c0_1==-8888;
 *******;
 * adding weights;
 preserve;
-u "Input\cct_hh_weights_an",clear;
+u "Input/cct_hh_weights_an",clear;
 drop if hhid=="";
 duplicates drop hhid,force;
 sort hhid;
@@ -526,5 +526,5 @@ gen cond_mere=anycond*mere;
 isid hhid;
 
 ********************************************;
-save "Output\workingtable_aser",replace;
+save "Output/workingtable_aser",replace;
 ********************************************;

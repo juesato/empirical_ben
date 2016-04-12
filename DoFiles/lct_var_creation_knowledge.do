@@ -13,13 +13,13 @@ set more off;
 ** knowledge teachers year 1;
 ******************************************;
 
-u "Input\cct_knowledge_teachers_year1_an",clear;
+u "Input/cct_knowledge_teachers_year1_an",clear;
 
 sort schoolunitid;
 preserve;
 
 ** we merge with school level data;
-u "Output\school_level_data",clear;
+u "Output/school_level_data",clear;
 global school_var "multiniveau num_sections v0_age v0_female 
  teacher_presence v0_presence prel_elec 
  prel_toilet prel_dist_road prel_dist_post prel_inacc_winter";
@@ -48,7 +48,7 @@ erase tp2.dta;
 ** we _merge with visits dates;
 sort schoolunitid;
 preserve;
-u "Input\cct_school_visits_an",clear;
+u "Input/cct_school_visits_an",clear;
 keep schoolunitid  v2_date v2_heure v2_inacc;
 duplicates drop schoolunitid,force;
 sort schoolunitid;
@@ -139,7 +139,7 @@ replace sexe=r(mean) if sexe==.;
 ******;
 ** we merge with stratification data;
 	sort schoolid;
-	merge schoolid using "Input\cct_stratum_an.dta";
+	merge schoolid using "Input/cct_stratum_an.dta";
 		tab _merge;
 
 		drop if _merge==2;
@@ -149,7 +149,7 @@ replace sexe=r(mean) if sexe==.;
 
 
 *************************************************************;
-save "Output\working_knowledge1",replace;
+save "Output/working_knowledge1",replace;
 *************************************************************;
 
 
@@ -161,7 +161,7 @@ save "Output\working_knowledge1",replace;
 ******************************************;
 
 
-u "Input\cct_knowledge_teachers_year2_an",clear;
+u "Input/cct_knowledge_teachers_year2_an",clear;
 
 
 
@@ -169,7 +169,7 @@ u "Input\cct_knowledge_teachers_year2_an",clear;
 ** Merging with School data;
 sort schoolunitid;
 preserve;
-u "Output\school_level_data",clear;
+u "Output/school_level_data",clear;
 global school_var "multiniveau num_sections v0_age v0_female 
  teacher_presence v0_presence prel_elec 
  prel_toilet prel_dist_road prel_dist_post prel_inacc_winter ";
@@ -270,7 +270,7 @@ replace sexe=r(mean) if sexe==.;
 ******;
 ** we merge with stratification data;
 	sort schoolid;
-	merge schoolid using "Input\cct_stratum_an.dta";
+	merge schoolid using "Input/cct_stratum_an.dta";
 		tab _merge;
 		drop if _merge==2;
 		assert _merge==3;
@@ -279,7 +279,7 @@ replace sexe=r(mean) if sexe==.;
 	sort schoolid schoolunitid;
 
 *************************************************************;
-save "Output\working_knowledge2",replace;
+save "Output/working_knowledge2",replace;
 *************************************************************;
 
 
@@ -292,7 +292,7 @@ save "Output\working_knowledge2",replace;
 
 forvalues j=1/2 {;
 
-u "Output\working_knowledge`j'",clear;
+u "Output/working_knowledge`j'",clear;
 
 
 drop if ks`j'_not_surveyed==. & ks`j'_not_surveyed_dir==. & ks`j'_not_surveyed_ens==.;
@@ -348,7 +348,7 @@ cap gen cond_mere=anycond*mere;
 
 
 *************************************************************;
-save "Output\working_knowledge_append",replace;
+save "Output/working_knowledge_append",replace;
 *************************************************************;
 
 
@@ -361,14 +361,14 @@ save "Output\working_knowledge_append",replace;
 ******************************************;
 ******************************************;
 
-u "Input\cct_knowledge_households_year1_an",clear;
+u "Input/cct_knowledge_households_year1_an",clear;
 
 
 ******;
 ** we _merge with visits dates;
 sort schoolunitid;
 preserve;
-u "Input\cct_school_visits_an",clear;
+u "Input/cct_school_visits_an",clear;
 keep schoolunitid  v2_date v2_heure v2_inacc;
 duplicates drop schoolunitid,force;
 sort schoolunitid;
@@ -407,7 +407,7 @@ drop if tot_survey==0 & surveyed==0 & (ksm_num_menage==3 | ksm_num_menage==4);
 sort schoolunitid;
 save tp1,replace;
 
-u "Output\working_knowledge1",clear;
+u "Output/working_knowledge1",clear;
 
 keep if ks1_not_surveyed!=.;
 keep schoolunitid;
@@ -427,7 +427,7 @@ erase tp1.dta;
 sort schoolunitid;
 preserve;
 
-u "Output\school_level_data",clear;
+u "Output/school_level_data",clear;
 global school_var "multiniveau num_sections v0_age v0_female 
  teacher_presence v0_presence prel_elec 
  prel_toilet prel_dist_road prel_dist_post prel_inacc_winter";
@@ -455,7 +455,7 @@ replace `var'=r(mean) if `var'==.;
 *************************************;
 ** merge with HH level data;
 preserve;
-use "Output\foranalysis.dta", clear; 
+use "Output/foranalysis.dta", clear; 
 
 gen cond_pere=anycond*pere;
 
@@ -604,7 +604,7 @@ gen `x'_s2=`x' if  ksm_strate==2;
 ******;
 ** we merge with stratification data;
 	sort schoolid;
-	merge schoolid using "Input\cct_stratum_an.dta";
+	merge schoolid using "Input/cct_stratum_an.dta";
 		tab _merge;
 		drop if _merge==2;
 		drop _merge;
@@ -631,7 +631,7 @@ cap gen cond_mere=anycond*mere;
 	
 
 *************************************************************;
-save "Output\working_knowledge3",replace;
+save "Output/working_knowledge3",replace;
 *************************************************************;
  
 
@@ -650,7 +650,7 @@ clear;
 set mem 500m;
 set more off;
 
-use "Output\foranalysis.dta", clear; 
+use "Output/foranalysis.dta", clear; 
 
 ***************;
 ** WE ADD HHS level controls;
@@ -691,7 +691,7 @@ bs_pchildren_neverenrolled bs_pchildren_enrolled bs_own_cellphone bs_age_head{;
 
 sort schoolunitid;
 preserve;
-u "Output\school_level_data",clear;
+u "Output/school_level_data",clear;
 
 global school_var "multiniveau num_sections v0_age v0_female 
  teacher_presence v0_presence prel_elec 
@@ -743,7 +743,7 @@ gen ksm2_cond_5abs_if_cond=m14==1 if ksm2_cond_abs==1 & ksm2_know_program_exist=
 ******;
 ** we add weights;
 sort hhid_endline;
-merge hhid_endline using "Input\cct_hh_weights_an";
+merge hhid_endline using "Input/cct_hh_weights_an";
 ta _merge;
 drop if _merge==2;
 assert _merge==3;
@@ -759,6 +759,6 @@ cap gen cond_mere=anycond*mere;
 
 ** SAVING;
 *************************************************************;
-save "Output\working_knowledge4",replace;
+save "Output/working_knowledge4",replace;
 *************************************************************;
  

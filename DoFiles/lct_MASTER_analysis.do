@@ -41,14 +41,14 @@ set maxvar 20000;
 * Path to the master folder;
 
 	*update this with your own path;
-*	cd "C:\Users\pdupas\Documents\Pascaline's Work\Research projects\MAROC CCT\data\Final anonymous data\";
+*	cd "C:/Users/pdupas/Documents/Pascaline's Work/Research projects/MAROC CCT/data/Final anonymous data/";
 *  cd ".."
 cd "/bbkinghome/juesato/benhassine_et_al/data_online/"
 
 ***********************************;
 * We get databases ready for analysis;
 
-do "DoFiles\lct_foranalysis";
+do "DoFiles/lct_foranalysis";
 
 
 *********************************;
@@ -58,12 +58,12 @@ do "DoFiles\lct_foranalysis";
 ** variables creation;
 
 ** HH baseline charac and attrition;
-do "DoFiles\lct_var_creation_hhs_baseline";
+do "DoFiles/lct_var_creation_hhs_baseline";
 *generate the following temporary databases;
 * workingtable_hh_baseline;
 
 ** schooling variables;
-do "DoFiles\lct_var_creation_schooling";
+do "DoFiles/lct_var_creation_schooling";
 *generate the following temporary databases;
 * workingtable1 ;
 * workingtable2 ;
@@ -75,7 +75,7 @@ do "DoFiles\lct_var_creation_schooling";
 * school_level_data ;
 
 ** Knowledge variables;
-do "DoFiles\lct_var_creation_knowledge";
+do "DoFiles/lct_var_creation_knowledge";
 *generate the following temporary databases;
 * working_knowledge1 ;
 * working_knowledge2 ;
@@ -83,39 +83,39 @@ do "DoFiles\lct_var_creation_knowledge";
 * working_knowledge4 ;
 
 ** Transfers databases;
-do "DoFiles\lct_var_creation_transfers";
+do "DoFiles/lct_var_creation_transfers";
 *generate the following temporary databases;
 * workingtable_transfer_data ;
 * workingtable_transfer_data_all ;
 
 ** ASER databases;
-do "DoFiles\lct_var_creation_ASER";
+do "DoFiles/lct_var_creation_ASER";
 *generate the following temporary databases;
 * workingtable_aser ;
 
 ** Perception and Educ returns databases;
-do "DoFiles\lct_var_creation_perception_returns";
+do "DoFiles/lct_var_creation_perception_returns";
 *generate the following temporary databases;
 * workingtable_returns ;
 
 ** Child's time use (sect C);
-do "DoFiles\lct_var_creation_time_use";
+do "DoFiles/lct_var_creation_time_use";
 *generate the following temporary databases;
 * workingtable8 ;
 
 ** Educational expenses;
-do "DoFiles\lct_var_creation_sectE_educ_exp";
+do "DoFiles/lct_var_creation_sectE_educ_exp";
 *generate the following temporary databases;
 * workingtable_sectE ;
 
 ** return to educ (sect A and G);
-do "DoFiles\lct_var_creation_returns_educ";
+do "DoFiles/lct_var_creation_returns_educ";
 *generate the following temporary database;
 * workingtable_educ_return ;
 
 ** child work; 
 * Sect G;
-do "DoFiles\lct_sectG_child_work";
+do "DoFiles/lct_sectG_child_work";
 *generate the following temporary database;
 * workingtable_child_work ;
 
@@ -123,7 +123,7 @@ do "DoFiles\lct_sectG_child_work";
 ******;
 ** Table construction;
 
-do "DoFiles\lct_tables_creation";
+do "DoFiles/lct_tables_creation";
 
 /*;
 ******;

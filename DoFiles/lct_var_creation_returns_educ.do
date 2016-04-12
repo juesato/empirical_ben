@@ -5,14 +5,14 @@ set more off;
 
 
 *************************************;
-use "Output\indiv_sectionA.dta", clear; 
+use "Output/indiv_sectionA.dta", clear; 
 	sort hhmid;
 
 
 ***********************************;
 * we first merge with Section A and keep HH members 16 years old and more;
 
-	merge hhmid using "Output\indiv_sectionG.dta";
+	merge hhmid using "Output/indiv_sectionG.dta";
 		assert _merge==3;
 		drop _merge;
 		drop if hhmember==0;
@@ -48,7 +48,7 @@ replace tot_income_employed=tot_income_employed+g7_3_act`i'
 *****;
 ** we add weights;
 sort hhid_endline;
-merge hhid_endline using "Input\cct_hh_weights_an";
+merge hhid_endline using "Input/cct_hh_weights_an";
 ta _merge;
 drop if _merge==2;
 assert _merge==3;
@@ -59,7 +59,7 @@ drop _merge;
 
 
 **************************************************;
-save "output\workingtable_educ_return",replace;
+save "output/workingtable_educ_return",replace;
 **************************************************;
 
 	

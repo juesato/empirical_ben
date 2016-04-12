@@ -140,7 +140,7 @@ prel_elec prel_elec_miss prel_inacc_winter prel_inacc_winter_miss";
 #delimit;
 set more off;
 
-u "Output\school_level_data",clear;
+u "Output/school_level_data",clear;
 
 
 global table1_var obs multiniveau num_sections
@@ -230,7 +230,7 @@ replace N=r(unique_value) if _n==`i'+3;
 *edit vars-p_val_mo_dif_fa  if _n<100;
 
 
-outsheet vars-p_val_mo_dif_fa using "Tables_paper\cct_table1.out"  if _n<100 ,replace;	
+outsheet vars-p_val_mo_dif_fa using "Tables_paper/cct_table1.out"  if _n<100 ,replace;	
 
 
 
@@ -248,7 +248,7 @@ outsheet vars-p_val_mo_dif_fa using "Tables_paper\cct_table1.out"  if _n<100 ,re
 **************************************;
 
 
-u "Output\workingtable_hh_baseline",clear;
+u "Output/workingtable_hh_baseline",clear;
 
 
 ** we trimed the top 1% for the monthly consumption;
@@ -345,7 +345,7 @@ replace N=r(N) if _n==`i'+2;
 
 *edit vars-p_val_mo_dif_fa  if _n<100;
 
-outsheet vars-p_val_mo_dif_fa using "Tables_paper\cct_table2.out"  if _n<100 ,replace;	
+outsheet vars-p_val_mo_dif_fa using "Tables_paper/cct_table2.out"  if _n<100 ,replace;	
 
 
 
@@ -359,7 +359,7 @@ outsheet vars-p_val_mo_dif_fa using "Tables_paper\cct_table2.out"  if _n<100 ,re
 #delimit;
 set more off;
 
-u "Output\workingtable_transfer_data",clear;
+u "Output/workingtable_transfer_data",clear;
 
 
 **********************************;
@@ -444,7 +444,7 @@ xi: reg `var' pere ${control_table3}
 
 *edit vars-p_val_mo_dif_fa if _n<100;
 
-outsheet vars-p_val_mo_dif_fa using "Tables_paper\cct_table3.out"  if _n<100 ,replace;	
+outsheet vars-p_val_mo_dif_fa using "Tables_paper/cct_table3.out"  if _n<100 ,replace;	
 
 
 
@@ -462,7 +462,7 @@ outsheet vars-p_val_mo_dif_fa using "Tables_paper\cct_table3.out"  if _n<100 ,re
 #delimit;
 set more off;
 
-u "Output\working_knowledge3",clear;
+u "Output/working_knowledge3",clear;
 
 global table4_var 
  ksm_know_program_exist ksm_uncond ksm_cond_nsp
@@ -523,7 +523,7 @@ save tp1,replace;
 #delimit;
 set more off;
 
-u "Output\working_knowledge4",clear;
+u "Output/working_knowledge4",clear;
 
 
 global table4_var "ksm2_know_program_exist ksm2_uncond
@@ -575,7 +575,7 @@ save tp2,replace;
 #delimit;
 set more off;
 
-u "Output\workingtable_hh_baseline",clear;
+u "Output/workingtable_hh_baseline",clear;
 global table4_var_bis "attrition";
 	
 gen vars="";
@@ -628,7 +628,7 @@ set more off;
 
 forvalues y=2009/2010 {;
 
-u "Output\working_knowledge_append",clear;
+u "Output/working_knowledge_append",clear;
 
 ** we keep only the good year;
 keep if year==`y';
@@ -702,7 +702,7 @@ erase tp1.dta;
 erase tp2.dta;
 *edit vars-N if _n<100;
 
-outsheet vars-N using "Tables_paper\cct_table4_uct_cct.out"  if _n<100 ,replace;	
+outsheet vars-N using "Tables_paper/cct_table4_uct_cct.out"  if _n<100 ,replace;	
 
 
 
@@ -721,7 +721,7 @@ global table5_1_var enroll_attend_May2010
 	dropout_since2008_grade_1234
 	dropout08_enroll10 neverenrolled; 
 
-u "Output\workingtable6",clear;
+u "Output/workingtable6",clear;
 
 gen vars="";
 gen mean_control="";
@@ -869,7 +869,7 @@ save `tp_`var'';
 ************************************;
 
 #delimit;
-use "Output\workingtable5", clear;
+use "Output/workingtable5", clear;
 
 gen cond_pere=anycond*pere;
 gen uncond_mere=uncond*mere;
@@ -981,7 +981,7 @@ outsheet vars-p_val_mo_dif_fa using "Tables_paper\cct_table5.out"  if _n<100 ,re
 
 
 #delimit;
-u "Output\workingtable8",clear;
+u "Output/workingtable8",clear;
 
 
 ***;
@@ -1063,7 +1063,7 @@ outsheet vars-N using "Tables_paper\cct_table6.out"  if _n<100 ,replace;
 
 #delimit;
 set more off;
-u "Output\workingtable_aser",clear;
+u "Output/workingtable_aser",clear;
 
 
 global table7_var  know_digit_all know_num_all know_sub_all 
@@ -1142,7 +1142,7 @@ save `tp_aser1';
 **  SUMMARY INDICES;
 
 #delimit;
-u "Output\workingtable_aser",clear;
+u "Output/workingtable_aser",clear;
 
 gen vars="";
 gen mean_control="";

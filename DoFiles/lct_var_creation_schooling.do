@@ -10,7 +10,7 @@ set more off;
 
 ***************************;
 **************School VISITS data;
-use "Input\cct_school_visits_an.dta", clear;
+use "Input/cct_school_visits_an.dta", clear;
 
 
 *******************************************************;
@@ -411,7 +411,7 @@ replace `var'_b=substr(`var',-2,2)
 
 ** on ajoute la base de correction
 sort stud_id
-merge stud_id using "Input\cct_correction_dropout_date_an"
+merge stud_id using "Input/cct_correction_dropout_date_an"
 ta _merge
 ** les 3 _merge==2 sont des duplicates que l'on a viré
 ** aprés avoir ajouter les V2(cad apres avoir fais ce 
@@ -719,13 +719,13 @@ replace niv_baseline=99 if niv_baseline==.;
 
 * we merge with stratification data;
 	sort schoolid;
-	merge schoolid using "Input\cct_stratum_an.dta";
+	merge schoolid using "Input/cct_stratum_an.dta";
 		tab _merge;
 		assert _merge==3;
 		drop _merge;
 
 	sort  schoolid schoolunitid stud_id;
-save "Output\workingtable1", replace;
+save "Output/workingtable1", replace;
 
 
 *****************************;
@@ -758,13 +758,13 @@ destring age_2010, replace;
 * at the end we decide to do the balance check only on those enrolled at baseline;
 keep if v0_statut==1;
 
-save "Output\temp_workingtableA2", replace;
+save "Output/temp_workingtableA2", replace;
 
 
 
 **************************************************;
 ****** Var for balance check  ; 
-use "Output\workingtable1", clear;
+use "Output/workingtable1", clear;
 
 drop if v0_i12_niveau==0;
 drop if v0_statut!=1;
@@ -784,7 +784,7 @@ drop if v0_statut!=1;
 	gen v0_female=(v0_a4=="F") if v0_a4!="";
 	gen obs=1;
 
-	save "Output\temp", replace;
+	save "Output/temp", replace;
 
 ****************************************************************************;
 * get info on number of sections per grade, and whether grade is multilevel;
@@ -807,13 +807,13 @@ drop if v0_statut!=1;
 	
 	collapse multiniveau_b num_sections, by(schoolunitid v1_c4);
 	sort schoolunitid v1_c4; 
-	save "Output\classinfo", replace;
+	save "Output/classinfo", replace;
 
 	
 **************************************************************;	
-use "Output\temp", clear;
+use "Output/temp", clear;
 	sort schoolunitid v1_c4;
-	merge schoolunitid v1_c4 using "Output\classinfo.dta";
+	merge schoolunitid v1_c4 using "Output/classinfo.dta";
 
 	foreach num of numlist 1/5 {;
 		bys schoolunitid: egen enroll_`num'=count(v1_c4) if v1_c4==`num';
@@ -823,7 +823,7 @@ use "Output\temp", clear;
 	replace enroll_1=enroll_1/2 if schoolunitid=="A446";
 	replace enroll_2=enroll_1/2 if schoolunitid=="A446";
 
-	save "Output\workingtable2", replace;
+	save "Output/workingtable2", replace;
 
 
 	
@@ -846,7 +846,7 @@ v0_age v0_female v0_tot_classe teacher_presence v0_presence enroll* mere, by(sch
 ********;
 ** We merge with the preliminary survey;
 sort schoolunitid;
-merge schoolunitid using "Input\cct_preliminary_survey_an", sort;
+merge schoolunitid using "Input/cct_preliminary_survey_an", sort;
 *ta _merge;
 drop if _merge==2;
 ren _merge merging_vis_eq_prel;
@@ -873,7 +873,7 @@ gen prel_toilet=a19==6 if a19!=.;
 *******;
 ** we want to include the list of units with no HH ever surveyed;
 sort schoolunitid;
-merge schoolunitid using "Output\list_unit_never_surveyed";
+merge schoolunitid using "Output/list_unit_never_surveyed";
 *ta _merge;
 drop if _merge==1;
 drop _merge;
@@ -883,7 +883,7 @@ drop _merge;
 ******;
 ** adding strata dummies and treatment variables;
 sort schoolid;
-merge schoolid using "Input\cct_stratum_an";
+merge schoolid using "Input/cct_stratum_an";
 ta _merge;
 drop if _merge==2;
 drop _merge;
@@ -900,8 +900,8 @@ gen uncond_pere=uncond*pere;
 
 *******************;
 sort schoolunitid;
-save "Output\school_level_data", replace;
-erase "Output\temp.dta";
+save "Output/school_level_data", replace;
+erase "Output/temp.dta";
 
 
 
@@ -909,17 +909,17 @@ erase "Output\temp.dta";
 ** removing schools not surveyed from the ;
 
 
-u "Output\temp_workingtableA2", clear;
-erase "Output\temp_workingtableA2.dta";
+u "Output/temp_workingtableA2", clear;
+erase "Output/temp_workingtableA2.dta";
 
 cap drop _merge;
 sort schoolunitid;
-merge schoolunitid using "Output\list_unit_never_surveyed";
+merge schoolunitid using "Output/list_unit_never_surveyed";
 ta _merge;
 keep if _merge==3;
 drop _merge;
 
-save "Output\workingtableA2", replace;
+save "Output/workingtableA2", replace;
 
 
 ******************************************;
@@ -930,7 +930,7 @@ save "Output\workingtableA2", replace;
 
 * We define variables for kids enrolled in school in June 2008;
 #delimit;
-use "Output\workingtable2", clear;
+use "Output/workingtable2", clear;
 
 * indiv controls;
 	destring age_2010, replace;
@@ -1137,7 +1137,7 @@ egen teacher_absence_y2=rmean(v5_teacher_absence v6_teacher_absence);
 ** we want to keep only data in the sample;
 cap drop _merge;
 sort schoolunitid;
-merge schoolunitid using "Output\list_unit_never_surveyed";
+merge schoolunitid using "Output/list_unit_never_surveyed";
 ta _merge;
 keep if _merge==3;
 
@@ -1148,7 +1148,7 @@ keep if _merge==3;
 drop _merge;
 sort schoolunitid;
 save tp1,replace;
-u "Output\school_level_data",clear;
+u "Output/school_level_data",clear;
 
 global school_var "multiniveau num_sections v0_age v0_female 
  teacher_presence v0_presence prel_elec 
@@ -1173,7 +1173,7 @@ erase tp2.dta;
 
 
 ********************************************;
-save "Output\workingtable3", replace;
+save "Output/workingtable3", replace;
 ********************************************;
 
 
@@ -1187,7 +1187,7 @@ save "Output\workingtable3", replace;
 *******************************************************;
 * We define variables for kids who had dropped out school by June 2008;
 #delimit;
-use "Output\workingtable1", clear;
+use "Output/workingtable1", clear;
 *******************************************************;
 
 * sampling frame;
@@ -1234,7 +1234,7 @@ gen enrolled_y2= (v4_statut==1 | v5_statut==1 | v6_statut==1);
 **** we add school level data;
 sort schoolunitid;
 save tp1,replace;
-u "Output\school_level_data",clear;
+u "Output/school_level_data",clear;
 
 global school_var "multiniveau num_sections v0_age v0_female 
  teacher_presence v0_presence prel_elec 
@@ -1258,12 +1258,12 @@ erase tp2.dta;
 
 
 **************************************************;
-save "Output\workingtable4", replace;
+save "Output/workingtable4", replace;
 **************************************************;
 
 * we define absences for child-day observations (instead of child);
 #delimit;
-use "Output\workingtable3", clear;
+use "Output/workingtable3", clear;
 
 keep  stud_id-satellite control
  uncond cond* any* pere mere stratum niv_baseline
@@ -1320,7 +1320,7 @@ gen attenance_y2_g14=attenance_y2 if niv_baseline>0 & niv_baseline<5;
 **** we add school level data;
 sort schoolunitid;
 save tp1,replace;
-u "Output\school_level_data",clear;
+u "Output/school_level_data",clear;
 
 global school_var "multiniveau num_sections v0_age v0_female 
  teacher_presence v0_presence prel_elec 
@@ -1344,7 +1344,7 @@ erase tp2.dta;
 
 
 *******************************************;
-save "Output\workingtable5", replace;
+save "Output/workingtable5", replace;
 *******************************************;
 
 
@@ -1364,7 +1364,7 @@ save "Output\workingtable5", replace;
 
 *************************************;
 #delimit;
-use "Output\indiv_sectionD.dta", clear;
+use "Output/indiv_sectionD.dta", clear;
 
 
 **************************************;
@@ -1846,7 +1846,7 @@ replace `var'=r(mean) if `var'==.;
 **** we add school level data;
 sort schoolunitid;
 save tp1,replace;
-u "Output\school_level_data",clear;
+u "Output/school_level_data",clear;
 
 global school_var "multiniveau num_sections v0_age v0_female 
  teacher_presence v0_presence prel_elec 
@@ -1870,7 +1870,7 @@ erase tp2.dta;
 
 ** we add weights;
 sort hhid_endline;
-merge hhid_endline using "Input\cct_hh_weights_an";
+merge hhid_endline using "Input/cct_hh_weights_an";
 ta _merge;
 drop if _merge==2;
 assert _merge==3;
@@ -1933,5 +1933,5 @@ gen `var'_hp=`var' if low_proba_enroll==0;
 	
 	
 **************************************************;
-save "Output\workingtable6",replace;
+save "Output/workingtable6",replace;
 **************************************************;

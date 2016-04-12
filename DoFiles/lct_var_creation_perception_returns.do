@@ -5,7 +5,7 @@ set mem 500m;
 set more off;
 
 
-use "Output\foranalysis.dta", clear; 
+use "Output/foranalysis.dta", clear; 
 
 ************************************************;
 ************************************************;
@@ -254,7 +254,7 @@ gen dif_princomple_girls= meansalary_prcompl_girls- meansalary_princompl_girls;
 cap drop _merge;
 sort schoolunitid;
 preserve;
-u "Output\school_level_data",clear;
+u "Output/school_level_data",clear;
 
 global school_var "multiniveau num_sections v0_age v0_female 
  teacher_presence v0_presence prel_elec 
@@ -278,7 +278,7 @@ replace `var'=r(mean) if `var'==.;
 ******;
 ** we add weight;
 sort hhid_endline;
-merge hhid_endline using "Input\cct_hh_weights_an";
+merge hhid_endline using "Input/cct_hh_weights_an";
 drop if _merge==2;
 assert _merge==3;
 drop _merge;
@@ -289,5 +289,5 @@ drop _merge;
 	
 	
 ************************************************;
-save "Output\workingtable_returns",replace;
+save "Output/workingtable_returns",replace;
 ************************************************;

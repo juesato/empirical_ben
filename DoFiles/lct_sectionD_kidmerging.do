@@ -7,7 +7,7 @@ set maxvar 17000;
 set more off;
 
 
-use "Output\temp_indivD_main.dta", clear;
+use "Output/temp_indivD_main.dta", clear;
 
 		* we check merged kids are the same in baseline and endline;
 			count if d3==bs_name & _merge==3;
@@ -28,7 +28,7 @@ use "Output\temp_indivD_main.dta", clear;
 
 			drop tomerge sumtomerge idhh bs_child_column; 
 		
-			save "Output\temp_indivD.dta", replace;  
+			save "Output/temp_indivD.dta", replace;  
 
 #delimit;
 set more off;
@@ -36,19 +36,19 @@ set more off;
 	* SECOND, look for kids that we have only at Baseline Section D among all kids we ave in the HH at endline (we merge with endline at the HH level), 
 			among the rest of hh members in the endline survey; 
 
-			use "Input\cct_endline_an", clear;
+			use "Input/cct_endline_an", clear;
 				sort hhid;
 				keep hhid hhid_endline a1_* a2_* a2_2_* a3_* a4_* a5_* a13_* d1_* d2_* d3_* d4_1_* d4_1_* d5_* d6_*;
-				save "Output\end_temp2",replace;
+				save "Output/end_temp2",replace;
 
 
-			use "Output\temp_indivD.dta", clear;
+			use "Output/temp_indivD.dta", clear;
 				gen order=substr(bs_idmember,8,2);
 				destring order,replace;
 
 
 			sort hhid;
-			merge hhid using "Output\end_temp2.dta";
+			merge hhid using "Output/end_temp2.dta";
 				tab _merge;
 				drop if _merge==2;
 				drop _merge;
@@ -267,7 +267,7 @@ A11900404
 
 	* THIRD, we merge with the baseline survey (HH level) to look for kids that we have only in Endline Section D, among the rest of hh members in the baseline survey; 
 			sort hhid;
-			merge hhid using "Output\temp_base_forsectionD.dta";
+			merge hhid using "Output/temp_base_forsectionD.dta";
 				tab _merge;
 				drop if _merge==2;
 
@@ -927,7 +927,7 @@ rename status status_desc;
 	sort bs_idmember;
 
 
-save "Output\kid_statusD.dta", replace;
+save "Output/kid_statusD.dta", replace;
 
-erase "Output\temp_indivD.dta";
-erase "Output\end_temp2.dta;
+erase "Output/temp_indivD.dta";
+erase "Output/end_temp2.dta;
